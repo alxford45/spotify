@@ -4,18 +4,19 @@ import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   title = 'web';
-  data = 'loading...';
-  constructor(private http: HttpClient) {
-  }
+  data: string = '';
+  constructor(private http: HttpClient) {}
   getHello() {
-    return
+    return;
   }
   ngOnInit() {
-    const $hello = this.http.get<{ data: string }>("/api");
-    $hello.subscribe((res) => { this.data = res.data })
+    const $auth = this.http.get<unknown>('/api/auth/track');
+    $auth.subscribe((res) => {
+      this.data = JSON.stringify(res, null, 2);
+    });
   }
 }
